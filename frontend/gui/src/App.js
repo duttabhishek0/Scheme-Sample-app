@@ -1,71 +1,37 @@
-import React, {useReducer, useState} from 'react';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import "bootstrap/dist/css/bootstrap.min.css"
+import PrivateRoute from "./utils/PrivateRoute"
 
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.name]: event.value
-  }
- }
+import LoginPage from './components/pages/Auth'
+import HomePage from './components/pages/HomePage'
+import Register from './components/pages/Register'
+import Navbar from './components/Navbar'
+import ProtectedPage from './utils/ProtectedPage'
 
-function App() {
-  const [formData, setFormData] = useReducer(formReducer, {});
-  const [submitting, setSubmitting] = useState(false);
-  const handleSubmit = event => {
-    event.preventDefault();
-    setSubmitting(true);
+import './App.css'
+import { AuthProvider } from './context/AuthContext'
 
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 3000)
-  }
-  const handleChange = event => {
-    setFormData({
-      name: event.target.name,
-      value: event.target.value,
-    });
-  }
-  return (
-    <div className="wrapper">
-      <h1>Data Collection Form</h1>
-      {submitting &&
-        <div>You are submitting the following:
-        <ul>
-          {Object.entries(formData).map(([name, value]) => (
-            <li key={name}><strong>{name}</strong>:{value.toString()}</li>
-          ))}
-        </ul></div>
-      }
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <label>
-            <p>Name</p>
-            <input name="name" onChange={handleChange}/>
-          </label>
-        </fieldset>
-        <fieldset>
-         <label>
-           <p>Apples</p>
-           <select name="apple" onChange={handleChange}>
-               <option value="">--Please choose an option--</option>
-               <option value="fuji">Fuji</option>
-               <option value="jonathan">Jonathan</option>
-               <option value="honey-crisp">Honey Crisp</option>
-           </select>
-         </label>
-         <label>
-           <p>Count</p>
-           <input type="number" name="count" onChange={handleChange} step="1"/>
-         </label>
-         <label>
-           <p>Gift Wrap</p>
-           <input type="checkbox" name="gift-wrap" onChange={handleChange} />
-         </label>
-       </fieldset>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  )
+export default function App() {
+    return (
+      // <BrowserRouter>
+      //   <Routes>
+      //       <Route path='/login' element={<LoginPage/>}/>
+      //       <Route path='/register' element={<Register/>}/>
+      //   </Routes>
+      // </BrowserRouter>
+      <BrowserRouter>
+        <div className="flex flex-col min-h-screen overflow-hidden">
+          <AuthProvider>
+            <Navbar/>
+              <Routes>
+                
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/register' element={<Register/>}/>
+                <Route path="/" element={HomePage} />
+              </Routes>
+          </AuthProvider>
+        </div>
+      </BrowserRouter>
+    )
 }
-
-export default App;
