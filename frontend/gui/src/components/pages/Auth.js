@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom"
-import React, { useContext } from "react"
-import AuthContext  from "../../context/AuthContext"
+import React, { useContext, useState } from "react"
+import AuthContext from "../../context/AuthContext"
 
 export default function (props) {
-  const loginUser  = useContext(AuthContext);
+  const [email, getEmail] = useState("")
+  const [password, getPassword] = useState("")
+  const { loginUser } = useContext(AuthContext);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const username = e.target.email.value;
-    const password = e.target.password.value;
-    username.length > 0 && loginUser(username, password);
+    email.length > 0 && loginUser(email, password);
   };
 
   return (
@@ -29,6 +29,8 @@ export default function (props) {
               type="email"
               className="form-control mt-1"
               placeholder="Enter email"
+              onChange={e => getEmail(e.target.value)}
+              required
             />
           </div>
           <div className="form-group mt-3">
@@ -37,6 +39,8 @@ export default function (props) {
               type="password"
               className="form-control mt-1"
               placeholder="Enter password"
+              onChange={e => getPassword(e.target.value)}
+              required
             />
             <p className="text-left mt-2">
               Forgot <a href="#">password?</a>

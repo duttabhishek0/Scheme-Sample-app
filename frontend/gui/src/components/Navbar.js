@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav>
       <div>
-        <h1>App Name</h1>
+        <h1>MIS Dashboard</h1>
         <div>
           {user ? (
             <>

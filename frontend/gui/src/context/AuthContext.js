@@ -62,7 +62,9 @@ export const AuthProvider = ({ children }) => {
         } else {
             alert("Something went wrong!");
         }
-    }; const logoutUser = () => {
+    }; 
+    
+    const logoutUser = () => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem("authTokens");

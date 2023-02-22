@@ -6,7 +6,7 @@ export default function(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
-    const registerUser = useContext(AuthContext)
+    const { registerUser }  = useContext(AuthContext)
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -27,7 +27,7 @@ export default function(props) {
               <div className="form-group mt-3">
                 <label>Full Name</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control mt-1"
                   placeholder="e.g Jane Doe"
                 />
